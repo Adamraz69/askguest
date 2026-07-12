@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wisdom Circle — Admin</title>
+    <link rel="stylesheet" href="/css/admin.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- Server Sidebar -->
+      <nav class="server-list">
+        <div class="server-icon home-icon">
+          <div class="icon-inner">W</div>
+        </div>
+        <div class="server-separator"></div>
+        <div class="server-icon active">
+          <div class="icon-inner">MC</div>
+        </div>
+      </nav>
+
+      <!-- Channel Sidebar -->
+      <aside class="channel-sidebar">
+        <div class="server-header">
+          <div class="server-name">
+            Wisdom Circle
+            <svg class="dropdown-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="channel-list">
+          <div class="channel-category">
+            <div class="category-header">
+              <svg class="collapse-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 10l5 5 5-5z"/>
+              </svg>
+              ADMIN
+            </div>
+            <div class="channel active">
+              <svg class="channel-hash" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5.88657 5.84427L9.70711 2.02373L11.1213 3.43794L8.01081 6.54845L13.0108 11.5484L16.1213 8.43794L17.5355 9.85215L13.715 13.6727L17.5355 17.4932L16.1213 18.9074L13.0108 15.7969L8.01081 20.7969L11.1213 23.9074L9.70711 25.3216L5.88657 21.5011L2.06604 25.3216L0.651825 23.9074L3.76233 20.7969L-1.23767 15.7969L1.87284 12.6864L-1.23767 9.57589L0.651825 8.16168L3.76233 11.2722L5.88657 5.84427Z"/>
+              </svg>
+              questions
+            </div>
+          </div>
+        </div>
+
+        <!-- User Area -->
+        <div class="user-area">
+          <div class="user-avatar">
+            <div class="avatar-circle admin-avatar">A</div>
+            <div class="status-indicator online"></div>
+          </div>
+          <div class="user-info">
+            <div class="user-name">Admin</div>
+            <div class="user-tag">#0001</div>
+          </div>
+          <a class="link-home" href="/" title="User page">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="chat-area">
+        <!-- Chat Header -->
+        <div class="chat-header">
+          <svg class="channel-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <div class="chat-name">Admin Panel</div>
+          <div class="chat-topic">Manage questions</div>
+        </div>
+
+        <!-- Login Panel -->
+        <div class="messages-area" id="login-panel">
+          <div class="login-wrapper">
+            <div class="login-card">
+              <div class="login-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                </svg>
+              </div>
+              <h2>Admin Access</h2>
+              <p class="login-subtitle">Enter your credentials to manage questions</p>
+              <form id="login-form">
+                <div class="field">
+                  <label class="label" for="username">Username</label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    autocomplete="username"
+                    required
+                    placeholder="Enter username"
+                  />
+                </div>
+                <div class="field">
+                  <label class="label" for="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="current-password"
+                    required
+                    placeholder="Enter password"
+                  />
+                </div>
+                <button type="submit" class="btn primary login-btn">Unlock</button>
+              </form>
+              <p class="msg error" id="login-msg" role="alert" hidden></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Panel (hidden by default) -->
+        <div class="messages-area hidden" id="admin-panel">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <h2>Questions</h2>
+              <span class="count-badge" id="count-badge">0</span>
+            </div>
+            <div class="toolbar-actions">
+              <button type="button" class="btn danger" id="clear-all">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+                Clear all
+              </button>
+              <button type="button" class="btn ghost" id="refresh">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                </svg>
+                Refresh
+              </button>
+            </div>
+          </div>
+
+          <div class="q-list-wrapper">
+            <ul class="q-list" id="q-list"></ul>
+            <p class="empty" id="empty">No questions yet.</p>
+          </div>
+
+          <p class="msg" id="admin-msg" role="status" aria-live="polite"></p>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      (function () {
+        var STORAGE_USER = "wisdomCircleAdminUser";
+        var STORAGE_PWD = "wisdomCircleAdminPwd";
+
+        var loginPanel = document.getElementById("login-panel");
+        var adminPanel = document.getElementById("admin-panel");
+        var loginForm = document.getElementById("login-form");
+        var loginMsg = document.getElementById("login-msg");
+        var qList = document.getElementById("q-list");
+        var empty = document.getElementById("empty");
+        var adminMsg = document.getElementById("admin-msg");
+        var clearAllBtn = document.getElementById("clear-all");
+        var refreshBtn = document.getElementById("refresh");
+        var countBadge = document.getElementById("count-badge");
+
+        function getUser() {
+          return sessionStorage.getItem(STORAGE_USER) || "";
+        }
+
+        function getPwd() {
+          return sessionStorage.getItem(STORAGE_PWD) || "";
+        }
+
+        function setCreds(u, p) {
+          if (u && p) {
+            sessionStorage.setItem(STORAGE_USER, u);
+            sessionStorage.setItem(STORAGE_PWD, p);
+          } else {
+            sessionStorage.removeItem(STORAGE_USER);
+            sessionStorage.removeItem(STORAGE_PWD);
+          }
+        }
+
+        function authHeaders() {
+          return {
+            "Content-Type": "application/json",
+            "X-Admin-User": getUser(),
+            "X-Admin-Password": getPwd(),
+          };
+        }
+
+        function parseJsonSafe(r) {
+          return r.json().catch(function () {
+            return {};
+          });
+        }
+
+        function errFromResponse(r, data) {
+          if (r.status === 429) {
+            return data.error || "Too many requests. Try again later.";
+          }
+          return data.error || "Request failed";
+        }
+
+        function showAdminMsg(text, isError) {
+          adminMsg.textContent = text || "";
+          adminMsg.className = "msg" + (isError ? " error" : " ok");
+          if (!text) adminMsg.className = "msg";
+        }
+
+        function formatDate(iso) {
+          try {
+            var d = new Date(iso);
+            return d.toLocaleString();
+          } catch (e) {
+            return iso;
+          }
+        }
+
+        function renderList(items) {
+          qList.innerHTML = "";
+          countBadge.textContent = items.length;
+          if (!items.length) {
+            empty.hidden = false;
+            return;
+          }
+          empty.hidden = true;
+          items.forEach(function (q) {
+            var li = document.createElement("li");
+            li.className = "q-item";
+            li.dataset.id = q.id;
+
+            var avatar = document.createElement("div");
+            avatar.className = "q-avatar";
+            avatar.textContent = q.name ? q.name.charAt(0).toUpperCase() : "?";
+
+            var content = document.createElement("div");
+            content.className = "q-content";
+
+            var head = document.createElement("div");
+            head.className = "q-head";
+            var who = document.createElement("span");
+            who.className = "q-who";
+            who.textContent = q.name ? q.name : "Anonymous";
+            var when = document.createElement("time");
+            when.className = "q-when";
+            when.dateTime = q.createdAt;
+            when.textContent = formatDate(q.createdAt);
+            head.appendChild(who);
+            head.appendChild(when);
+
+            var body = document.createElement("p");
+            body.className = "q-text";
+            body.textContent = q.question;
+
+            var del = document.createElement("button");
+            del.type = "button";
+            del.className = "btn small danger";
+            del.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>';
+            del.addEventListener("click", function () {
+              deleteOne(q.id);
+            });
+
+            content.appendChild(head);
+            content.appendChild(body);
+            li.appendChild(avatar);
+            li.appendChild(content);
+            li.appendChild(del);
+            qList.appendChild(li);
+          });
+        }
+
+        function loadQuestions() {
+          showAdminMsg("");
+          return fetch("/api/questions", { headers: authHeaders() })
+            .then(function (r) {
+              return parseJsonSafe(r).then(function (data) {
+                if (r.status === 401) {
+                  setCreds("", "");
+                  loginPanel.classList.remove("hidden");
+                  adminPanel.classList.add("hidden");
+                  throw new Error("Session expired. Sign in again.");
+                }
+                if (r.status === 429) {
+                  throw new Error(errFromResponse(r, data));
+                }
+                if (!r.ok) throw new Error(errFromResponse(r, data));
+                return data;
+              });
+            })
+            .then(function (data) {
+              renderList(data);
+            })
+            .catch(function (err) {
+              showAdminMsg(err.message, true);
+            });
+        }
+
+        function deleteOne(id) {
+          if (!confirm("Delete this question?")) return;
+          fetch("/api/questions/" + encodeURIComponent(id), {
+            method: "DELETE",
+            headers: authHeaders(),
+          })
+            .then(function (r) {
+              return parseJsonSafe(r).then(function (data) {
+                if (r.status === 401) {
+                  setCreds("", "");
+                  loginPanel.classList.remove("hidden");
+                  adminPanel.classList.add("hidden");
+                  throw new Error("Unauthorized");
+                }
+                if (r.status === 429) {
+                  throw new Error(errFromResponse(r, data));
+                }
+                if (!r.ok) throw new Error(errFromResponse(r, data));
+                return loadQuestions();
+              });
+            })
+            .catch(function (err) {
+              showAdminMsg(err.message, true);
+            });
+        }
+
+        loginForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          loginMsg.hidden = true;
+          var user = document.getElementById("username").value.trim();
+          var pwd = document.getElementById("password").value;
+          fetch("/api/admin/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: user, password: pwd }),
+          })
+            .then(function (r) {
+              return parseJsonSafe(r).then(function (data) {
+                if (r.status === 429) {
+                  throw new Error(errFromResponse(r, data));
+                }
+                if (!r.ok) throw new Error(data.error || "Invalid credentials");
+                return data;
+              });
+            })
+            .then(function () {
+              setCreds(user, pwd);
+              loginPanel.classList.add("hidden");
+              adminPanel.classList.remove("hidden");
+              document.getElementById("password").value = "";
+              return loadQuestions();
+            })
+            .catch(function (err) {
+              loginMsg.textContent = err.message;
+              loginMsg.hidden = false;
+            });
+        });
+
+        clearAllBtn.addEventListener("click", function () {
+          if (!confirm("Delete ALL questions? This cannot be undone.")) return;
+          fetch("/api/questions", {
+            method: "DELETE",
+            headers: authHeaders(),
+          })
+            .then(function (r) {
+              return parseJsonSafe(r).then(function (data) {
+                if (r.status === 401) {
+                  setCreds("", "");
+                  loginPanel.classList.remove("hidden");
+                  adminPanel.classList.add("hidden");
+                  throw new Error("Unauthorized");
+                }
+                if (r.status === 429) {
+                  throw new Error(errFromResponse(r, data));
+                }
+                if (!r.ok) throw new Error(errFromResponse(r, data));
+                return loadQuestions();
+              });
+            })
+            .catch(function (err) {
+              showAdminMsg(err.message, true);
+            });
+        });
+
+        refreshBtn.addEventListener("click", function () {
+          loadQuestions();
+        });
+
+        if (getUser() && getPwd()) {
+          fetch("/api/admin/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              username: getUser(),
+              password: getPwd(),
+            }),
+          })
+            .then(function (r) {
+              return parseJsonSafe(r).then(function (data) {
+                if (r.status === 429) {
+                  loginMsg.textContent = errFromResponse(r, data);
+                  loginMsg.hidden = false;
+                  return;
+                }
+                if (r.status === 401) {
+                  setCreds("", "");
+                  return;
+                }
+                if (!r.ok) throw new Error();
+                loginPanel.classList.add("hidden");
+                adminPanel.classList.remove("hidden");
+                return loadQuestions();
+              });
+            })
+            .catch(function () {
+              setCreds("", "");
+            });
+        }
+      })();
+    </script>
+  </body>
+</html>
